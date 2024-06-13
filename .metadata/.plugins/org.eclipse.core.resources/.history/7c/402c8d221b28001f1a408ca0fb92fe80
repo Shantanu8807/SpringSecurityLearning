@@ -1,0 +1,15 @@
+package com.springsecurity.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MoreAnotherDetails {
+     
+	
+	@GetMapping("/getMoreAnotherDetails")
+	public String getMoreAnotherDetails()
+	{
+		return "here are more another details";
+	}
+}

@@ -1,0 +1,7 @@
+package com.springsecurity.config;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public class CustomerConfig implements UserDetailsService{
+
+}

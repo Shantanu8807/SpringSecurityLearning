@@ -1,0 +1,11 @@
+package com.springsecurity.model;
+
+
+
+@Entity
+public class Customer {
+	
+	@Id
+	private int id;
+
+}

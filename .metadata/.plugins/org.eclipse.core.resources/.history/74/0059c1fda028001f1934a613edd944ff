@@ -1,0 +1,19 @@
+spring.application.name=springsecurity
+
+
+
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.sql.init.schema-locations=classpath:schema.sql
+spring.sql.init.data-locations=classpath:data.sql
+# Optional: Control the initialization mode
+spring.sql.init.mode=always
+
+# Show SQL queries in the console (for debugging)
+spring.jpa.show-sql=true
+
+# Enable H2 console (for verification)
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console

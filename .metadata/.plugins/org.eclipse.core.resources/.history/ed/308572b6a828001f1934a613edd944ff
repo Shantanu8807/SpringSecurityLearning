@@ -1,0 +1,5 @@
+package com.springsecurity.repo;
+
+public interface CustomerRepo {
+
+}
