@@ -1,0 +1,7 @@
+package com.springsecurity.config;
+
+import org.springframework.security.authentication.AuthenticationProvider;
+
+public class CustomerAuthenticationProvider implements AuthenticationProvider {
+
+}
