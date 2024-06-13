@@ -7517,3 +7517,6 @@ java.lang.IllegalStateException
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-13 21:11:11.179
 !MESSAGE Classpath changed for project: springsecurity
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-06-13 21:29:08.150
+!MESSAGE Classpath changed for project: springsecurity
