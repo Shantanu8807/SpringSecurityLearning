@@ -1,17 +1,17 @@
 package com.springsecurity.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import com.springsecurity.filter.AuthoritiesLoggingAfterFilter;
+import com.springsecurity.filter.AuthoritiesLoggingAtFilter;
+import com.springsecurity.filter.RequestValidationBeforeFilter;
 
 @Configuration
 public class ProjectSecurityConfig {
@@ -19,20 +19,37 @@ public class ProjectSecurityConfig {
 	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-	{
-		http.authorizeHttpRequests((authorizeHttpRequests) ->
+	{   
+		
+		//we use hasauthority methods when we want to give access to particular actions 
+		// and we use roles when we want to give access to set of actions in spring security 
+		http
+		.addFilterBefore(new RequestValidationBeforeFilter(),BasicAuthenticationFilter.class)
+		.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+		.addFilterAt(new AuthoritiesLoggingAtFilter(),BasicAuthenticationFilter.class)
+		.authorizeHttpRequests((authorizeHttpRequests) ->
  				{
 						authorizeHttpRequests
-							.requestMatchers("/testController/**","/anotherTestController/**","/moreAnotherDetails/**").authenticated()
-							.requestMatchers("/demo1/**","/demo2/**","/h2-console/**","/register/**").permitAll();
+					/*
+					 * .requestMatchers("/testController/**").hasAuthority("getDetails()")
+					 * .requestMatchers("/anotherTestController/**").hasAuthority("getAlldetails")
+					 * .requestMatchers("/moreAnotherDetails/**").hasAuthority("getMoredetails")
+					 */
+						
+						.requestMatchers("/testController/**").hasRole("ADMIN")
+						.requestMatchers("/anotherTestController/**").hasRole("USER")
+						.requestMatchers("/moreAnotherDetails/**").hasRole("USER")
+						.requestMatchers("/demo1/**","/demo2/**","/h2-console/**","/register/**").permitAll();
 							
 				}
  					
  			)
+		//this is custom filter added 
 		.formLogin(Customizer.withDefaults())
 		.httpBasic(Customizer.withDefaults());
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
+			/*
+			 * http.csrf().disable(); http.headers().frameOptions().disable();
+			 */
  		return http.build();
 		
 	}
